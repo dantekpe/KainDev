@@ -1,0 +1,51 @@
+
+  <div class="container">
+
+    <div class="card o-hidden border-0 shadow-lg my-5">
+      <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+        <div class="row">
+          <div class="col-lg-5 d-none d-lg-block">
+            <img src='{{imagePath}}' style="width: 450px; height: 500px;"/>
+          </div>
+          <div class="col-lg-7">
+            <div class="p-5">
+              <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">Login  to Account!</h1>
+                <h1 class="h3 text-gray-900 mb-4" *ngIf='message'>{{message}}</h1>
+              </div>
+              <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="user"> 
+
+                <div class="form-group">
+                  <input type="email" class="form-control form-control-user" name="email"
+                  required  formControlName="email"  placeholder="Email Address">
+                  <div class="error" *ngIf="loginForm.controls['email'].hasError('required')
+                  && loginForm.controls['email'].touched"> Please enter correct Email</div>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control form-control-user" name="password"
+                    required  formControlName="password"  placeholder="Password">
+                    <div class="error" *ngIf="loginForm.controls['password'].hasError('required')
+                    && loginForm.controls['password'].touched"> Please enter correct Email</div>
+                  
+                </div>
+                <button  class="btn btn-primary btn-user btn-block" [disabled]="loginForm.invalid">
+                  Login
+                </button> 
+                <div class="error" *ngIf="invalidLogin"> <div>Please try again</div></div>
+              </form>
+              <hr>
+              <div class="text-center">
+                <a class="small" href="forgot-password.html">Forgot Password?</a>
+              </div>
+              <div class="text-center">
+                <a class="small" [routerLink]="['/Signin']" >Don't yet have an account? SignUp!</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
