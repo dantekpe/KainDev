@@ -14,32 +14,36 @@
                 <h1 class="h4 text-gray-900 mb-4">Login  to Account!</h1>
                 <h1 class="h3 text-gray-900 mb-4" *ngIf='message'>{{message}}</h1>
               </div>
-              <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="user"> 
+              <form [formGroup]="loginForm" (ngSubmit)="login()" class="user"> 
 
                 <div class="form-group">
                   <input type="email" class="form-control form-control-user" name="email"
                   required  formControlName="email"  placeholder="Email Address">
-                  <div class="error" *ngIf="loginForm.controls['email'].hasError('required')
-                  && loginForm.controls['email'].touched"> Please enter correct Email</div>
+                  
+                    <div *ngIf="isSubmitted && formControls.email.errors" class="help-block">
+                      <div *ngIf="formControls.email.errors.required">Email is required</div>
+                    </div>
                 </div>
+
                 <div class="form-group">
                     <input type="password" class="form-control form-control-user" name="password"
                     required  formControlName="password"  placeholder="Password">
-                    <div class="error" *ngIf="loginForm.controls['password'].hasError('required')
-                    && loginForm.controls['password'].touched"> Please enter correct Email</div>
+                    <div *ngIf="isSubmitted && formControls.password.errors" class="help-block">
+                      <div *ngIf="formControls.password.errors.required">Password is required</div>
+                    </div>
                   
                 </div>
-                <button  class="btn btn-primary btn-user btn-block" [disabled]="loginForm.invalid">
+                <button  class="btn btn-primary btn-user btn-block" type="submit" value="Log in">
                   Login
                 </button> 
-                <div class="error" *ngIf="invalidLogin"> <div>Please try again</div></div>
+                
               </form>
               <hr>
               <div class="text-center">
-                <a class="small" href="forgot-password.html">Forgot Password?</a>
+                <a class="small" href="">Forgot Password?</a>
               </div>
               <div class="text-center">
-                <a class="small" [routerLink]="['/Signin']" >Don't yet have an account? SignUp!</a>
+                <a class="small" [routerLink]="['/Signup']" >Don't yet have an account? SignUp!</a>
               </div>
             </div>
           </div>

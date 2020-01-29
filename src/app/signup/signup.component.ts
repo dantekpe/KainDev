@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -7,13 +7,13 @@ import { Router } from '@angular/router';
     templateUrl: './signup.component.html'
 
 })
-export class SignUpComponent{
+export class SignUpComponent implements OnInit{
     pageTitle: string = 'Signup';
     
     imagePath: string = 'assets/images/Dogid.jpg'; 
     
     SignupForm: FormGroup;
-    invalidLogin: boolean = false;  
+    isSubmitted  =  false;  
     
     constructor(private formBuilder: FormBuilder, 
         private router: Router) {
@@ -29,12 +29,21 @@ export class SignUpComponent{
         });
     }
 
+    get formControls() { 
+        return this.SignupForm.controls; 
+    }
+
+
     onSubmit(){
-        //console.log(this.SignupForm.value);
         console.log(this.SignupForm.value);
+        this.isSubmitted = true;
+        this.router.navigateByUrl('/admin');
+
+        //console.log(this.SignupForm.value);
+        /*console.log(this.SignupForm.value);
         if(this.SignupForm.invalid){
             return;
-        }
+        }*/
     }
         
 

@@ -7,13 +7,19 @@ import { AppComponent } from './app.component';
 import { LogInComponent } from './login/login.component';
 import { SignUpComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { AdminComponent } from './admin/admin.component';
+import { AuthGuard } from './auth.guard';
+import { AuthService } from './auth.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignUpComponent,
     LogInComponent,
-    HomeComponent
+    HomeComponent,
+    NavbarComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -22,11 +28,16 @@ import { HomeComponent } from './home/home.component';
     RouterModule.forRoot([
       {path: 'Signup', component: SignUpComponent },
       {path: 'Login', component: LogInComponent },
-      {path: '', redirectTo: 'Login', pathMatch: 'full'},
-      {path: '**', redirectTo: 'Login', pathMatch: 'full'}
+      { path: 'admin', component: AdminComponent, canActivate: 
+      [AuthGuard]},
+      {path: 'Home', component: HomeComponent },
+      {path: '', redirectTo: 'Login', pathMatch: 'full', canActivate: 
+      [AuthGuard]},
+      {path: '**', redirectTo: 'Login', pathMatch: 'full', canActivate: 
+      [AuthGuard]}
     ])
   ],
-  providers: [],
+  providers: [AuthService,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

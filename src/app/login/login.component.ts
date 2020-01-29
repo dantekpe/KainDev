@@ -1,20 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User  } from '../user';
+import { AuthService } from '../auth.service';
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html'
 
 })
-export class LogInComponent{
+export class LogInComponent implements OnInit{
     pageTitle: string = 'Login';
     imagePath: string = 'assets/images/Dogid.jpg'; 
 
     loginForm: FormGroup;
-    invalidLogin: boolean = false;  
+    isSubmitted  =  false; 
     
-    constructor(private formBuilder: FormBuilder, 
+    constructor(private formBuilder: FormBuilder, private authService: AuthService,
         private router: Router) {
     }
     
@@ -26,12 +28,21 @@ export class LogInComponent{
         });
     }
 
-    onSubmit(){
-        //console.log(this.SignupForm.value);
-        console.log(this.loginForm.value);
-        if(this.loginForm.invalid){
-            return;
-        }
+
+    get formControls() { 
+        return this.loginForm.controls; 
     }
+
+    login(){
+        console.log(this.loginForm.value);
+        this.isSubmitted = true;
+        if(this.loginForm.invalid){
+          return;
+        }
+        this.authService.login(this.loginForm.value);
+        this.router.navigateByUrl('/admin');
+      }
+      
+
 
 }
